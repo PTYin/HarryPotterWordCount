@@ -1,5 +1,7 @@
 # Harry Potter Word Count
 
+![](statistic.png)
+
 # Dependency
 
 - matplotlib
