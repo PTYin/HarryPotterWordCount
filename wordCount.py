@@ -20,7 +20,7 @@ for word in wordList:
 maxList = []
 maxCount = []
 nowPercentage = 0
-expectedPercentage = 0.8
+expectedPercentage = 0.99
 while nowPercentage < expectedPercentage:
     maxCount.append(0)
     maxList.append("")
@@ -38,11 +38,12 @@ maxCount.append(int((1-nowPercentage) * totalWords))
 
 fig = plt.figure(figsize=(32, 32))
 ax1 = fig.add_subplot(111)
-plt.title('Harry Potter Words Count')
+# plt.title('Harry Potter Words Count')
 tupleBuilder = [0.0 for index in range(len(maxCount))]
 tupleBuilder[0] = 0.1
 explode = tuple(tupleBuilder)
 ax1.pie(maxCount, labels=maxList, autopct='%1.1f%%', explode=explode, textprops={'size': 'xx-large'})
 ax1.axis('equal')
+ax1.set_title('Harry Potter Words Count')
 plt.savefig('statistic.png')
 plt.show()
