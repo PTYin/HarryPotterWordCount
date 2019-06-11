@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 import re
+import tkinter
 
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
+plt.style.use("ggplot")
 
+top = tkinter.Tk()
 
 f = open("book.txt", 'r', encoding='utf-8')
 wordList = list(f.read())
@@ -20,7 +23,7 @@ for word in wordList:
 maxList = []
 maxCount = []
 nowPercentage = 0
-expectedPercentage = 0.99
+expectedPercentage = 0.2
 while nowPercentage < expectedPercentage:
     maxCount.append(0)
     maxList.append("")
