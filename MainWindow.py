@@ -45,17 +45,30 @@ class MainWindow:
         max_list = []
         max_count = []
         now_percentage = 0
-        while now_percentage < self.expected_percentage:
-            max_count.append(0)
-            max_list.append("")
-            for word, count in word_count.items():
-                if max_count[-1] < count:
-                    max_count[-1] = count
-                    max_list[-1] = word
-            word_count.pop(max_list[-1])
-            now_percentage = 0
-            for val in max_count:
-                now_percentage += val / total_words
+        if self.expected_percentage >= 1:
+            while len(word_count) != 0:
+                max_count.append(0)
+                max_list.append("")
+                for word, count in word_count.items():
+                    if max_count[-1] < count:
+                        max_count[-1] = count
+                        max_list[-1] = word
+                # if max_list[-1] in word_count:
+                word_count.pop(max_list[-1])
+        else:
+            while now_percentage < self.expected_percentage:
+                max_count.append(0)
+                max_list.append("")
+                for word, count in word_count.items():
+                    if max_count[-1] < count:
+                        max_count[-1] = count
+                        max_list[-1] = word
+                # if max_list[-1] in word_count:
+                word_count.pop(max_list[-1])
+                now_percentage = 0
+                for val in max_count:
+                    now_percentage += val / total_words
+
         print(max_list, [val / total_words for val in max_count], sep="\n")
 
         fig = plt.figure(figsize=(32, 32))

@@ -1,4 +1,3 @@
-import matplotlib
 from matplotlib import pyplot as plt
 import tkinter as tk
 import threading
