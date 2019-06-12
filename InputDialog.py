@@ -17,3 +17,8 @@ class InputDialog(tk.Tk):
         self.main_window.expected_percentage = float(self.input.get().strip("%"))/100
         self.quit()
         self.withdraw()
+
+
+if __name__ == '__main__':
+    window = MainWindow.MainWindow()
+    window.root.mainloop()

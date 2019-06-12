@@ -1,7 +1,4 @@
-import matplotlib
-# matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
-# from matplotlib.pylab import mpl
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk  # NavigationToolbar2TkAgg
 
 import tkinter as tk
@@ -9,7 +6,6 @@ from tkinter import filedialog
 
 import threading
 import re
-import time
 import InputDialog
 
 
@@ -27,12 +23,8 @@ class MainWindow:
         file = tk.filedialog.askopenfilename(title='open file', filetypes=[('text', '*.txt'), ('All Files', '*')])
         self.dialog = InputDialog.InputDialog(self)
         self.dialog.mainloop()
-        # self.dialog.destroy()
-        self.canvas.destroy()
-        if hasattr(self, 'toolbar'):
-            self.toolbar.destroy()
-        self.load_thread = threading.Thread(target=self.create_matplotlib, args=(file,))
-        self.load_thread.start()
+        load_thread = threading.Thread(target=self.create_matplotlib, args=(file,))
+        load_thread.start()
 
     def create_matplotlib(self, f):
         plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -50,7 +42,6 @@ class MainWindow:
                     word_count[word] += 1
                 else:
                     word_count[word] = 1
-        # max 9
         max_list = []
         max_count = []
         now_percentage = 0
@@ -73,19 +64,24 @@ class MainWindow:
         tuple_builder[0] = 0.1
         explode = tuple(tuple_builder)
         ax1.pie(max_count, labels=max_list, autopct='%1.1f%%', explode=explode, textprops={'size': 'larger'})
-        print('here')
         ax1.axis('equal')
         ax1.set_title('Words Count')
 
         self.create_form(fig)
 
     def create_form(self, figure):
+        self.clear()
         figure_canvas = FigureCanvasTkAgg(figure, self.root)
         self.canvas = figure_canvas.get_tk_widget()
 
         self.toolbar = NavigationToolbar2Tk(figure_canvas, self.root)
         self.toolbar.update()
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+    def clear(self):
+        self.canvas.destroy()
+        if hasattr(self, 'toolbar'):
+            self.toolbar.destroy()
 
 
 if __name__ == "__main__":
